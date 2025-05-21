@@ -8,7 +8,6 @@ const OL_BASE = 'https://openlibrary.org';
 export async function searchBooksByTitle(query) {
   const searchUrl = `${OL_BASE}/search.json?title=${encodeURIComponent(query)}`;
 
-  // 7 s de timeout es más razonable que 0.7 s
   const { data } = await axios.get(searchUrl, { timeout: 7000 });
 
   console.log('[search] numFound:', data.numFound, 'docs.length:', data.docs?.length);
@@ -17,7 +16,7 @@ export async function searchBooksByTitle(query) {
     titulo: d.title,
     autor: d.author_name?.join(', '),
     anio_publicacion: d.first_publish_year,
-    work_key: d.key,       // p. ej. "/works/OL262758W"
+    work_key: d.key,    
   }), '\n');
 }
 
@@ -35,7 +34,7 @@ export async function getBookDetailsByTitle(title) {
   );
   if (!match) return null;
 
-  const workKey = match.key;                    // "/works/OL262758W"
+  const workKey = match.key;                  
   const workUrl = `${OL_BASE}${workKey}.json`;
 
   const { data: work } = await axios.get(workUrl, { timeout: 7000 });

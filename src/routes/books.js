@@ -52,10 +52,10 @@ router.get('/libro', async (req, res) => {
     if ('pretty' in req.query) {
       return res
         .type('json')
-        .send(JSON.stringify(detalle, null, 2));   // <- return también
+        .send(JSON.stringify(detalle, null, 2));  
     }
 
-    return res.json(detalle);                     // respuesta “compacta”
+    return res.json(detalle);                
   } catch (error) {
     // igual aquí retornamos para no seguir
     return res.status(502).json({ error: error.message });
